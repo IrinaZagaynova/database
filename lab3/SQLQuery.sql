@@ -1,6 +1,6 @@
 
 --INSERT
---1. Без указания списка полей
+--1. Р‘РµР· СѓРєР°Р·Р°РЅРёСЏ СЃРїРёСЃРєР° РїРѕР»РµР№
 INSERT INTO [actor]
 VALUES
 	('Naomi Watts', DATEFROMPARTS ( 1968, 09, 28 ), 'Great Britain'),
@@ -21,7 +21,7 @@ VALUES
 	('StudioCanal', 1988, 'France'),
 	('Legendary Pictures', 2000, 'USA');
 
---2. С указанием списка полей
+--2. РЎ СѓРєР°Р·Р°РЅРёРµРј СЃРїРёСЃРєР° РїРѕР»РµР№
 
 INSERT INTO [film]
 	(title)
@@ -39,42 +39,42 @@ VALUES
 	(3, DATEFROMPARTS ( 2014, 10, 14 ), 'USA', 188020017),
 	(3, DATEFROMPARTS ( 2018, 11, 06 ), 'Russia', 26192066);
 
---3. С чтением значения из другой таблицы
+--3. РЎ С‡С‚РµРЅРёРµРј Р·РЅР°С‡РµРЅРёСЏ РёР· РґСЂСѓРіРѕР№ С‚Р°Р±Р»РёС†С‹
 
 INSERT [film]
 	(title) 
 SELECT name FROM role; 
 
 --DELETE
---1. Всех записей
+--1. Р’СЃРµС… Р·Р°РїРёСЃРµР№
 
 DELETE [production_company]
 
---2. По условию
+--2. РџРѕ СѓСЃР»РѕРІРёСЋ
 		--DELETE FROM table_name WHERE condition;
 
 DELETE FROM [actor] 
 WHERE country_of_residence = 'Great Britain';
 
---3. Очистить таблицу
+--3. РћС‡РёСЃС‚РёС‚СЊ С‚Р°Р±Р»РёС†Сѓ
 		--TRUNCATE
 
 TRUNCATE TABLE [production_company]
 
 --UPDATE
---1. Всех записей
+--1. Р’СЃРµС… Р·Р°РїРёСЃРµР№
 
 UPDATE [role]
 SET name = 'name'; 
 
---2. По условию обновляя один атрибут
+--2. РџРѕ СѓСЃР»РѕРІРёСЋ РѕР±РЅРѕРІР»СЏСЏ РѕРґРёРЅ Р°С‚СЂРёР±СѓС‚
 		--UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
 
 UPDATE [role]
 SET type = 'supporting role' 
 WHERE name = 'name'
 
---3. По условию обновляя несколько атрибутов
+--3. РџРѕ СѓСЃР»РѕРІРёСЋ РѕР±РЅРѕРІР»СЏСЏ РЅРµСЃРєРѕР»СЊРєРѕ Р°С‚СЂРёР±СѓС‚РѕРІ
 		--UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
 
 UPDATE [actor]
@@ -82,51 +82,51 @@ SET full_name = 'Naomi Watts', date_of_birth = DATEFROMPARTS ( 1968, 09, 28 ), c
 WHERE full_name = 'Amanda Seyfried';
 
 --SELECT
---1. С определенным набором извлекаемых атрибутов (SELECT atr1, atr2 FROM...)
+--1. РЎ РѕРїСЂРµРґРµР»РµРЅРЅС‹Рј РЅР°Р±РѕСЂРѕРј РёР·РІР»РµРєР°РµРјС‹С… Р°С‚СЂРёР±СѓС‚РѕРІ (SELECT atr1, atr2 FROM...)
 
 SELECT full_name, country_of_residence FROM [actor];
 
---2. Со всеми атрибутами (SELECT * FROM...)
+--2. РЎРѕ РІСЃРµРјРё Р°С‚СЂРёР±СѓС‚Р°РјРё (SELECT * FROM...)
 
 SELECT * FROM [role];
 
---3. С условием по атрибуту (SELECT * FROM ... WHERE atr1 = "")
+--3. РЎ СѓСЃР»РѕРІРёРµРј РїРѕ Р°С‚СЂРёР±СѓС‚Сѓ (SELECT * FROM ... WHERE atr1 = "")
 
 SELECT * FROM [actor] WHERE country_of_residence = 'Great Britain';
 
 --SELECT ORDER BY + TOP (LIMIT)
---1. С сортировкой по возрастанию ASC + ограничение вывода количества записей
+--1. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ ASC + РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІС‹РІРѕРґР° РєРѕР»РёС‡РµСЃС‚РІР° Р·Р°РїРёСЃРµР№
 
 SELECT TOP 5 * FROM actor
 ORDER BY full_name;
 
---2. С сортировкой по убыванию DESC
+--2. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ СѓР±С‹РІР°РЅРёСЋ DESC
 
 SELECT TOP 5 * FROM actor
 ORDER BY date_of_birth DESC;
 
---3. С сортировкой по двум атрибутам + ограничение вывода количества записей
+--3. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РґРІСѓРј Р°С‚СЂРёР±СѓС‚Р°Рј + РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІС‹РІРѕРґР° РєРѕР»РёС‡РµСЃС‚РІР° Р·Р°РїРёСЃРµР№
 
 SELECT TOP 5 * FROM actor
 ORDER BY full_name, date_of_birth;
 
---4. С сортировкой по первому атрибуту, из списка извлекаемых
+--4. РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РїРµСЂРІРѕРјСѓ Р°С‚СЂРёР±СѓС‚Сѓ, РёР· СЃРїРёСЃРєР° РёР·РІР»РµРєР°РµРјС‹С…
 
 SELECT full_name, date_of_birth FROM actor
 ORDER BY 1;
 
---Работа с датами
---1. WHERE по дате
+--Р Р°Р±РѕС‚Р° СЃ РґР°С‚Р°РјРё
+--1. WHERE РїРѕ РґР°С‚Рµ
 
 SELECT * FROM actor
 WHERE date_of_birth > DATEFROMPARTS ( 1970, 08, 20 );
 
---2. Извлечь из таблицы не всю дату, а только год.
+--2. РР·РІР»РµС‡СЊ РёР· С‚Р°Р±Р»РёС†С‹ РЅРµ РІСЃСЋ РґР°С‚Сѓ, Р° С‚РѕР»СЊРєРѕ РіРѕРґ.
 
 SELECT * FROM actor
 WHERE YEAR(date_of_birth) = 1968;
 
---SELECT GROUP BY с функциями агрегации
+--SELECT GROUP BY СЃ С„СѓРЅРєС†РёСЏРјРё Р°РіСЂРµРіР°С†РёРё
 --1. MIN
 
 SELECT id_film, MIN(fees) AS fees
@@ -158,7 +158,7 @@ FROM rental
 GROUP BY id_film; 
 
 --SELECT GROUP BY + HAVING
---1. Написать 3 разных запроса с использованием GROUP BY + HAVING
+--1. РќР°РїРёСЃР°С‚СЊ 3 СЂР°Р·РЅС‹С… Р·Р°РїСЂРѕСЃР° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј GROUP BY + HAVING
 SELECT 
 	country_of_residence, COUNT(*) AS count_country_of_residence
 FROM 
@@ -181,14 +181,14 @@ GROUP BY id_film
 HAVING  id_film > 0;
 
 ----SELECT JOIN
---1. LEFT JOIN двух таблиц и WHERE по одному из атрибутов
+--1. LEFT JOIN РґРІСѓС… С‚Р°Р±Р»РёС† Рё WHERE РїРѕ РѕРґРЅРѕРјСѓ РёР· Р°С‚СЂРёР±СѓС‚РѕРІ
 
 SELECT full_name, date_of_birth, name AS name_role
 FROM actor
 LEFT JOIN role ON actor.id_actor = role.id_actor
 WHERE role.id_actor < 3;
 
---2. RIGHT JOIN. Получить такую же выборку, как и в 5.1
+--2. RIGHT JOIN. РџРѕР»СѓС‡РёС‚СЊ С‚Р°РєСѓСЋ Р¶Рµ РІС‹Р±РѕСЂРєСѓ, РєР°Рє Рё РІ 5.1
 
 --5.1
 SELECT TOP 5 * FROM actor
@@ -198,25 +198,25 @@ SELECT TOP 5 * FROM role
 RIGHT JOIN actor ON role.id_actor = actor.id_actor
 ORDER BY full_name;
 
---3. LEFT JOIN трех таблиц + WHERE по атрибуту из каждой таблицы
+--3. LEFT JOIN С‚СЂРµС… С‚Р°Р±Р»РёС† + WHERE РїРѕ Р°С‚СЂРёР±СѓС‚Сѓ РёР· РєР°Р¶РґРѕР№ С‚Р°Р±Р»РёС†С‹
 
 SELECT * FROM actor
 LEFT JOIN role ON actor.id_actor = role.id_role
 LEFT JOIN  rental ON rental.id_film = role.id_film
 WHERE actor.country_of_residence != 'Great Britain' AND rental.id_film > 1 AND role.type = 'main role'
 
---4. FULL OUTER JOIN двух таблиц
+--4. FULL OUTER JOIN РґРІСѓС… С‚Р°Р±Р»РёС†
 
 SELECT * FROM actor
 FULL OUTER JOIN role ON role.id_actor = actor.id_actor
 
---Подзапросы
---1. Написать запрос с WHERE IN (подзапрос)
+--РџРѕРґР·Р°РїСЂРѕСЃС‹
+--1. РќР°РїРёСЃР°С‚СЊ Р·Р°РїСЂРѕСЃ СЃ WHERE IN (РїРѕРґР·Р°РїСЂРѕСЃ)
 
 SELECT full_name FROM actor
 WHERE id_actor IN (SELECT id_actor FROM role WHERE id_role < 3);
 
---2. Написать запрос SELECT atr1, atr2, (подзапрос) FROM ... 
+--2. РќР°РїРёСЃР°С‚СЊ Р·Р°РїСЂРѕСЃ SELECT atr1, atr2, (РїРѕРґР·Р°РїСЂРѕСЃ) FROM ... 
 
 SELECT 
 	full_name,
