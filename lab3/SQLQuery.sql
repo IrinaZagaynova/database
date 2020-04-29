@@ -216,5 +216,5 @@ SELECT
 	full_name,
 	date_of_birth,
 	(SELECT name FROM [role] 
-	WHERE actor.id_actor = role.id_actor) AS role_name
+	WHERE role.id_actor > 5) AS role_name
 FROM [actor]
