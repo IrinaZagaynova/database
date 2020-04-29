@@ -159,24 +159,18 @@ GROUP BY id_film;
 
 --SELECT GROUP BY + HAVING
 --1. Написать 3 разных запроса с использованием GROUP BY + HAVING
-SELECT 
-	country_of_residence, COUNT(*) AS count_country_of_residence
-FROM 
-	actor 
+SELECT country_of_residence, COUNT(*) AS count_country_of_residence
+FROM actor 
 GROUP BY country_of_residence
 HAVING country_of_residence = 'Great Britain';
 
-SELECT 
-	id_film, SUM(fees) AS sum_fees
-FROM 
-	rental
+SELECT id_film, SUM(fees) AS sum_fees
+FROM rental
 GROUP BY id_film
 HAVING  id_film > 1;
 
-SELECT 
-	id_film, MIN(fees) AS avg_fees
-FROM 
-	rental
+SELECT id_film, MIN(fees) AS avg_fees
+FROM rental
 GROUP BY id_film
 HAVING  id_film > 0;
 
