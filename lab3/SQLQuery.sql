@@ -1,7 +1,6 @@
-
 --INSERT
 --1. Без указания списка полей
-INSERT INTO [actor]
+INSERT INTO actor
 VALUES
 	('Naomi Watts', DATEFROMPARTS ( 1968, 09, 28 ), 'Great Britain'),
 	('Amanda Seyfried', DATEFROMPARTS ( 1985, 12, 03 ), 'USA'),
@@ -9,13 +8,13 @@ VALUES
 	('Emma Watson', DATEFROMPARTS ( 1990, 04, 15 ), 'Great Britain'),
 	('Matthew McConaughey', DATEFROMPARTS ( 1969, 11, 04 ), 'USA');
 
-INSERT INTO [role]
+INSERT INTO role
 VALUES
 	(1, 1, 'Gertrude', 'main role'),
 	(2, 2, 'Chloe', 'main role'),
 	(3, 5, 'Cooper', 'main role');
 
-INSERT INTO [production_company]
+INSERT INTO production_company
 VALUES
 	('IFC Films', 1999, 'USA'),
 	('StudioCanal', 1988, 'France'),
@@ -23,14 +22,14 @@ VALUES
 
 --2. С указанием списка полей
 
-INSERT INTO [film]
+INSERT INTO film
 	(title)
 VALUES
 	('Ophelia'),
 	('Chloe'),
 	('Interstellar');
 
-INSERT INTO [rental]
+INSERT INTO rental
 	(id_film, release_date, country, fees)
 VALUES
 	(1, DATEFROMPARTS ( 2018, 07, 07 ), 'USA', 50722),
@@ -41,58 +40,58 @@ VALUES
 
 --3. С чтением значения из другой таблицы
 
-INSERT [film]
+INSERT film
 	(title) 
 SELECT name FROM role; 
 
 --DELETE
 --1. Всех записей
 
-DELETE [production_company]
+DELETE production_company
 
 --2. По условию
-		--DELETE FROM table_name WHERE condition;
+--DELETE FROM table_name WHERE condition;
 
-DELETE FROM [actor] 
+DELETE FROM actor 
 WHERE country_of_residence = 'Great Britain';
 
 --3. Очистить таблицу
-		--TRUNCATE
+--TRUNCATE
 
-TRUNCATE TABLE [production_company]
+TRUNCATE TABLE production_company
 
 --UPDATE
 --1. Всех записей
 
-UPDATE [role]
+UPDATE role
 SET name = 'name'; 
 
 --2. По условию обновляя один атрибут
-		--UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
+--UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
 
-UPDATE [role]
+UPDATE role
 SET type = 'supporting role' 
 WHERE name = 'name'
 
 --3. По условию обновляя несколько атрибутов
-		--UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
+--UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
 
-UPDATE [actor]
+UPDATE actor
 SET full_name = 'Naomi Watts', date_of_birth = DATEFROMPARTS ( 1968, 09, 28 ), country_of_residence = 'Great Britain'
 WHERE full_name = 'Amanda Seyfried';
 
 --SELECT
 --1. С определенным набором извлекаемых атрибутов (SELECT atr1, atr2 FROM...)
 
-SELECT full_name, country_of_residence FROM [actor];
+SELECT full_name, country_of_residence FROM actor;
 
 --2. Со всеми атрибутами (SELECT * FROM...)
 
-SELECT * FROM [role];
+SELECT * FROM role;
 
 --3. С условием по атрибуту (SELECT * FROM ... WHERE atr1 = "")
 
-SELECT * FROM [actor] WHERE country_of_residence = 'Great Britain';
+SELECT * FROM actor WHERE country_of_residence = 'Great Britain';
 
 --SELECT ORDER BY + TOP (LIMIT)
 --1. С сортировкой по возрастанию ASC + ограничение вывода количества записей
@@ -197,7 +196,7 @@ ORDER BY full_name;
 SELECT * FROM actor
 LEFT JOIN role ON actor.id_actor = role.id_role
 LEFT JOIN  rental ON rental.id_film = role.id_film
-WHERE actor.country_of_residence != 'Great Britain' AND rental.id_film > 1 AND role.type = 'main role'
+WHERE actor.country_of_residence != 'USA' AND rental.id_film > 1 AND role.type != 'main role'
 
 --4. FULL OUTER JOIN двух таблиц
 
@@ -215,6 +214,6 @@ WHERE id_actor IN (SELECT id_actor FROM role WHERE id_role < 3);
 SELECT 
 	full_name,
 	date_of_birth,
-	(SELECT name FROM [role] 
-	WHERE role.id_actor > 5) AS role_name
-FROM [actor]
+	(SELECT name FROM role 
+	WHERE role.id_actor > 2) AS role_name
+FROM actor
