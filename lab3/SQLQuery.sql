@@ -2,11 +2,11 @@
 --1. Без указания списка полей
 INSERT INTO actor
 VALUES
-	('Naomi Watts', DATEFROMPARTS ( 1968, 09, 28 ), 'Great Britain'),
-	('Amanda Seyfried', DATEFROMPARTS ( 1985, 12, 03 ), 'USA'),
-	('Mark Wahlberg', DATEFROMPARTS ( 1971, 07, 05 ), 'USA'),
-	('Emma Watson', DATEFROMPARTS ( 1990, 04, 15 ), 'Great Britain'),
-	('Matthew McConaughey', DATEFROMPARTS ( 1969, 11, 04 ), 'USA');
+	('Naomi Watts', '28.09.1968', 'Great Britain'),
+	('Amanda Seyfried', '03.12.1985', 'USA'),
+	('Mark Wahlberg', '05.07.1971', 'USA'),
+	('Emma Watson', '15.04.1990', 'Great Britain'),
+	('Matthew McConaughey', '04.11.1969', 'USA');
 
 INSERT INTO role
 VALUES
@@ -32,11 +32,11 @@ VALUES
 INSERT INTO rental
 	(id_film, release_date, country, fees)
 VALUES
-	(1, DATEFROMPARTS ( 2018, 07, 07 ), 'USA', 50722),
-	(2,  DATEFROMPARTS ( 2009, 09, 20 ), 'USA', 3075255),
-	(1, DATEFROMPARTS ( 2018, 09, 10 ), 'Russia', 79950),
-	(3, DATEFROMPARTS ( 2014, 10, 14 ), 'USA', 188020017),
-	(3, DATEFROMPARTS ( 2018, 11, 06 ), 'Russia', 26192066);
+	(1, '07.07.2018', 'USA', 50722),
+	(2, '20.09.2009', 'USA', 3075255),
+	(1, '10.09.2018', 'Russia', 79950),
+	(3, '14.20.2014', 'USA', 188020017),
+	(3, '06.11.2018', 'Russia', 26192066);
 
 --3. С чтением значения из другой таблицы
 
@@ -77,7 +77,7 @@ WHERE name = 'name'
 --UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
 
 UPDATE actor
-SET full_name = 'Naomi Watts', date_of_birth = DATEFROMPARTS ( 1968, 09, 28 ), country_of_residence = 'Great Britain'
+SET full_name = 'Naomi Watts', date_of_birth = '28.09.1968', country_of_residence = 'Great Britain'
 WHERE full_name = 'Amanda Seyfried';
 
 --SELECT
@@ -118,7 +118,7 @@ ORDER BY 1;
 --1. WHERE по дате
 
 SELECT * FROM actor
-WHERE date_of_birth > DATEFROMPARTS ( 1970, 08, 20 );
+WHERE date_of_birth > '20.08.1970';
 
 --2. Извлечь из таблицы не всю дату, а только год.
 
