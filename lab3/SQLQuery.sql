@@ -32,11 +32,11 @@ VALUES
 INSERT INTO rental
 	(id_film, release_date, country, fees)
 VALUES
-	(1, '07.07.2018', 'USA', 50722),
-	(2, '20.09.2009', 'USA', 3075255),
-	(1, '10.09.2018', 'Russia', 79950),
-	(3, '14.20.2014', 'USA', 188020017),
-	(3, '06.11.2018', 'Russia', 26192066);
+	(1, '07-07-2018', 'USA', 50722),
+	(2, '20-09-2009', 'USA', 3075255),
+	(1, '10-09-2018', 'Russia', 79950),
+	(3, '14-2-2014', 'USA', 188020017),
+	(3, '06-11-2018', 'Russia', 26192066);
 
 --3. С чтением значения из другой таблицы
 
@@ -152,6 +152,8 @@ GROUP BY id_film;
 
 --5. COUNT
 
+SELECT * FROM rental;
+
 SELECT id_film, COUNT(*) AS count_id_film
 FROM rental
 GROUP BY id_film; 
@@ -161,14 +163,14 @@ GROUP BY id_film;
 SELECT country_of_residence, COUNT(*) AS count_country_of_residence
 FROM actor 
 GROUP BY country_of_residence
-HAVING country_of_residence = 'Great Britain';
+HAVING country_of_residence = 'USA';
 
 SELECT id_film, SUM(fees) AS sum_fees
 FROM rental
 GROUP BY id_film
 HAVING  id_film > 1;
 
-SELECT id_film, MIN(fees) AS avg_fees
+SELECT id_film, MIN(fees) AS min_fees
 FROM rental
 GROUP BY id_film
 HAVING  id_film > 0;
@@ -187,7 +189,7 @@ WHERE role.id_actor < 3;
 SELECT TOP 5 * FROM actor
 ORDER BY full_name;
 
-SELECT TOP 5 * FROM role
+SELECT TOP 5 actor.id_actor, actor.full_name, actor.date_of_birth, actor.country_of_residence FROM role
 RIGHT JOIN actor ON role.id_actor = actor.id_actor
 ORDER BY full_name;
 
