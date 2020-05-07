@@ -152,8 +152,6 @@ GROUP BY id_film;
 
 --5. COUNT
 
-SELECT * FROM rental;
-
 SELECT id_film, COUNT(*) AS count_id_film
 FROM rental
 GROUP BY id_film; 
@@ -178,8 +176,7 @@ HAVING  id_film > 0;
 ----SELECT JOIN
 --1. LEFT JOIN двух таблиц и WHERE по одному из атрибутов
 
-SELECT full_name, date_of_birth, name AS name_role
-FROM actor
+SELECT full_name, date_of_birth, name AS name_role FROM actor
 LEFT JOIN role ON actor.id_actor = role.id_actor
 WHERE role.id_actor < 3;
 
