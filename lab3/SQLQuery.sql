@@ -59,7 +59,7 @@ WHERE country_of_residence = 'Great Britain';
 --TRUNCATE
 
 TRUNCATE TABLE production_company
-
+TRUNCATE TABLE rental
 --UPDATE
 --1. Всех записей
 
