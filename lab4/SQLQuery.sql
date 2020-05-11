@@ -78,13 +78,11 @@ WHERE hotel.name = N'Космос' and
 	room_category.name = N'Бизнес' and
 	room_in_booking.checkin_date = '10.05.2019';
 
---7. Найти все "пересекающиеся" варианты проживания. Правильное состояние: не может быть забронирован один номер на одну дату несколько раз,
---т.к. нельзя заселиться нескольким клиентам в один номер. Записи в таблице room_in_booking с id_room_in_booking = 5 и 2154 являются примером
---неправильного состояния, которые необходимо найти. Результирующий кортеж выборки должен содержать информацию о двух конфликтующих номерах.
+--7. Найти все "пересекающиеся" варианты проживания
 
 SELECT * FROM room_in_booking b1, room_in_booking b2
 WHERE
-	b1.id_room = b2.id_room AND
+	b1.id_room = b2.id_room and
 	b1.id_booking != b2.id_booking and
 	b2.id_booking != b1.id_booking and
 	b1.checkin_date < b2.checkout_date and 
@@ -100,7 +98,7 @@ INSERT INTO room_in_booking VALUES(1, 20, '2020.05.05', '2020.05.10')
 
 COMMIT;
 
---9. Добавить необходимые индексы для всех таблиц.
+--9. Добавить необходимые индексы для всех таблиц
 
 CREATE NONCLUSTERED INDEX [IX_hotel_hotel_name] ON [dbo].[hotel]
 (
