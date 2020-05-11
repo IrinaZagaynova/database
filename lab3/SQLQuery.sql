@@ -12,7 +12,8 @@ INSERT INTO role
 VALUES
 	(1, 1, 'Gertrude', 'main role'),
 	(2, 2, 'Chloe', 'main role'),
-	(3, 5, 'Cooper', 'main role');
+	(3, 5, 'Cooper', 'main role'),
+	(4, 5, 'Mickey Pearson', 'main role');
 
 INSERT INTO production_company
 VALUES
@@ -27,7 +28,8 @@ INSERT INTO film
 VALUES
 	('Ophelia'),
 	('Chloe'),
-	('Interstellar');
+	('Interstellar'),
+	('The Gentlemen');
 
 INSERT INTO rental
 	(id_film, release_date, country, fees)
@@ -58,8 +60,8 @@ WHERE country_of_residence = 'Great Britain';
 --3. Очистить таблицу
 --TRUNCATE
 
-TRUNCATE TABLE production_company
 TRUNCATE TABLE rental
+
 --UPDATE
 --1. Всех записей
 
@@ -158,20 +160,22 @@ GROUP BY id_film;
 
 --SELECT GROUP BY + HAVING
 --1. Написать 3 разных запроса с использованием GROUP BY + HAVING
-SELECT country_of_residence, COUNT(*) AS count_country_of_residence
-FROM actor 
-GROUP BY country_of_residence
-HAVING country_of_residence = 'USA';
+
+SELECT actor.id_actor, actor.full_name, COUNT(role.id_actor) AS role_count
+FROM actor
+JOIN role ON actor.id_actor = role.id_actor
+GROUP BY actor.id_actor, actor.full_name
+HAVING  COUNT(role.id_actor) > 1
 
 SELECT id_film, SUM(fees) AS sum_fees
 FROM rental
 GROUP BY id_film
-HAVING  id_film > 1;
+HAVING SUM(fees) < '200000000';
 
 SELECT id_film, MIN(fees) AS min_fees
 FROM rental
 GROUP BY id_film
-HAVING  id_film > 0;
+HAVING MIN(fees) > '3000000';
 
 ----SELECT JOIN
 --1. LEFT JOIN двух таблиц и WHERE по одному из атрибутов
