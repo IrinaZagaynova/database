@@ -33,6 +33,7 @@ WHERE hotel.name = N'Космос' and
 SELECT * FROM room
 WHERE id_room NOT IN (
 	SELECT room_in_booking.id_room FROM room_in_booking
+	RIGHT JOIN room ON room.id_room = room_in_booking.id_room
 	WHERE room_in_booking.checkin_date <= '22.04.2019' and 
 	room_in_booking.checkout_date > '22.04.2019')
 ORDER BY room.id_room;
@@ -84,8 +85,7 @@ SELECT * FROM room_in_booking b1, room_in_booking b2
 WHERE
 	b1.id_room = b2.id_room and
 	b1.id_booking != b2.id_booking and
-	b2.id_booking != b1.id_booking and
-	b1.checkin_date < b2.checkout_date and 
+	b1.checkin_date < b2.checkin_date and 
 	b2.checkin_date < b1.checkout_date
 ORDER BY b1.id_room_in_booking;
 
@@ -94,7 +94,7 @@ ORDER BY b1.id_room_in_booking;
 BEGIN TRANSACTION 
 
 INSERT INTO booking VALUES(1, '2020.05.01')
-INSERT INTO room_in_booking VALUES(1, 20, '2020.05.05', '2020.05.10')
+INSERT INTO room_in_booking VALUES(SCOPE_IDENTITY(), 20, '2020.05.05', '2020.05.10')
 
 COMMIT;
 
