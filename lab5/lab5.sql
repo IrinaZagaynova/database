@@ -65,9 +65,9 @@ ORDER BY dealer.id_dealer;
 UPDATE production 
 SET production.price = 0.8 * production.price
 WHERE production.id_production IN (
-		SELECT production.id_production FROM production
-		JOIN medicine ON production.id_medicine = medicine.id_medicine
-		WHERE production.price > 3000 AND medicine.cure_duration <= 7 );
+	SELECT production.id_production FROM production
+	JOIN medicine ON production.id_medicine = medicine.id_medicine
+	WHERE production.price > 3000 AND medicine.cure_duration <= 7 );
 
 --7. Добавить необходимые индексы.
 
