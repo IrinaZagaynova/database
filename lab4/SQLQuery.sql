@@ -15,7 +15,6 @@ ADD FOREIGN KEY (id_booking) REFERENCES booking(id_booking)
 ALTER TABLE booking
 ADD FOREIGN KEY (id_client) REFERENCES client(id_client)
 
-
 --2. Выдать информация о клиентах гостиницы "Космос", проживающих в номерах категории "Люкс" на 1 апреля 2019г
 
 SELECT client.id_client, client.name, client.phone FROM client
@@ -34,7 +33,6 @@ WHERE hotel.name = N'Космос' and
 SELECT * FROM room
 WHERE id_room NOT IN (
 	SELECT room_in_booking.id_room FROM room_in_booking
-	RIGHT JOIN room ON room.id_room = room_in_booking.id_room
 	WHERE room_in_booking.checkin_date <= '22.04.2019' and 
 	room_in_booking.checkout_date > '22.04.2019')
 ORDER BY room.id_room;
