@@ -15,6 +15,7 @@ ADD FOREIGN KEY (id_booking) REFERENCES booking(id_booking)
 ALTER TABLE booking
 ADD FOREIGN KEY (id_client) REFERENCES client(id_client)
 
+
 --2. Выдать информация о клиентах гостиницы "Космос", проживающих в номерах категории "Люкс" на 1 апреля 2019г
 
 SELECT client.id_client, client.name, client.phone FROM client
@@ -57,7 +58,6 @@ JOIN booking ON room_in_booking.id_booking = booking.id_booking
 JOIN client ON booking.id_client = client.id_client
 JOIN (
 	SELECT room_in_booking.id_room, MAX(room_in_booking.checkout_date) AS max_room_in_booking_cd FROM room_in_booking
-	JOIN booking ON room_in_booking.id_booking = booking.id_booking
 	WHERE YEAR(room_in_booking.checkout_date) = '2019' and
 		MONTH(room_in_booking.checkout_date) = '04'
 	GROUP BY room_in_booking.id_room) 
@@ -96,7 +96,7 @@ BEGIN TRANSACTION
 INSERT INTO booking VALUES(1, '2020.05.01')
 INSERT INTO room_in_booking VALUES(SCOPE_IDENTITY(), 20, '2020.05.05', '2020.05.10')
 
-COMMIT;
+ROLLBACK;
 
 --9. Добавить необходимые индексы для всех таблиц
 
