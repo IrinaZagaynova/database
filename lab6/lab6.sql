@@ -1,4 +1,4 @@
---1. Добавить внешние ключи.
+--1. Р”РѕР±Р°РІРёС‚СЊ РІРЅРµС€РЅРёРµ РєР»СЋС‡Рё.
 
 ALTER TABLE student
 ADD FOREIGN KEY (id_group) REFERENCES [group](id_group)
@@ -18,7 +18,7 @@ ADD FOREIGN KEY (id_lesson) REFERENCES lesson(id_lesson)
 ALTER TABLE mark
 ADD FOREIGN KEY (id_student) REFERENCES student(id_student)
 
---2. Выдать оценки студентов по информатике если они обучаются данному предмету. Оформить выдачу данных с использованием view.
+--2. Р’С‹РґР°С‚СЊ РѕС†РµРЅРєРё СЃС‚СѓРґРµРЅС‚РѕРІ РїРѕ РёРЅС„РѕСЂРјР°С‚РёРєРµ РµСЃР»Рё РѕРЅРё РѕР±СѓС‡Р°СЋС‚СЃСЏ РґР°РЅРЅРѕРјСѓ РїСЂРµРґРјРµС‚Сѓ. РћС„РѕСЂРјРёС‚СЊ РІС‹РґР°С‡Сѓ РґР°РЅРЅС‹С… СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј view.
 
 CREATE VIEW computer_science_marks AS
 SELECT student.name, mark.mark FROM student
@@ -32,8 +32,8 @@ SELECT * FROM computer_science_marks
 DROP VIEW IF EXISTS dbo.computer_science_marks
 GO
 
---3. Дать информацию о должниках с указанием фамилии студента и названия предмета. Должниками считаются студенты, не имеющие оценки по предмету,
---который ведется в группе. Оформить в виде процедуры, на входе идентификатор группы.
+--3. Р”Р°С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РґРѕР»Р¶РЅРёРєР°С… СЃ СѓРєР°Р·Р°РЅРёРµРј С„Р°РјРёР»РёРё СЃС‚СѓРґРµРЅС‚Р° Рё РЅР°Р·РІР°РЅРёСЏ РїСЂРµРґРјРµС‚Р°. Р”РѕР»Р¶РЅРёРєР°РјРё СЃС‡РёС‚Р°СЋС‚СЃСЏ СЃС‚СѓРґРµРЅС‚С‹, РЅРµ РёРјРµСЋС‰РёРµ РѕС†РµРЅРєРё РїРѕ РїСЂРµРґРјРµС‚Сѓ,
+--РєРѕС‚РѕСЂС‹Р№ РІРµРґРµС‚СЃСЏ РІ РіСЂСѓРїРїРµ. РћС„РѕСЂРјРёС‚СЊ РІ РІРёРґРµ РїСЂРѕС†РµРґСѓСЂС‹, РЅР° РІС…РѕРґРµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РіСЂСѓРїРїС‹.
 
 CREATE PROCEDURE get_debtors
 @id_group AS INT
@@ -53,7 +53,7 @@ EXECUTE get_debtors @id_group = 2;
 EXECUTE get_debtors @id_group = 3;
 EXECUTE get_debtors @id_group = 4;
 
---4. Дать среднюю оценку студентов по каждому предмету для тех предметов, по которым занимается не менее 35 студентов.
+--4. Р”Р°С‚СЊ СЃСЂРµРґРЅСЋСЋ РѕС†РµРЅРєСѓ СЃС‚СѓРґРµРЅС‚РѕРІ РїРѕ РєР°Р¶РґРѕРјСѓ РїСЂРµРґРјРµС‚Сѓ РґР»СЏ С‚РµС… РїСЂРµРґРјРµС‚РѕРІ, РїРѕ РєРѕС‚РѕСЂС‹Рј Р·Р°РЅРёРјР°РµС‚СЃСЏ РЅРµ РјРµРЅРµРµ 35 СЃС‚СѓРґРµРЅС‚РѕРІ.
 
 SELECT subject.name, AVG(mark.mark) AS avg_mark FROM mark
 JOIN student ON  mark.id_student = student.id_student
@@ -62,28 +62,20 @@ JOIN [subject] ON lesson.id_subject = [subject].id_subject
 GROUP BY [subject].name
 HAVING COUNT(student.id_student) >= 35
 
---5. Дать оценки студентов специальности ВМ по всем проводимым предметам с указанием группы, фамилии, предмета, даты. При отсутствии оценки заполнить
---значениями NULL поля оценки.
+--5. Р”Р°С‚СЊ РѕС†РµРЅРєРё СЃС‚СѓРґРµРЅС‚РѕРІ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё Р’Рњ РїРѕ РІСЃРµРј РїСЂРѕРІРѕРґРёРјС‹Рј РїСЂРµРґРјРµС‚Р°Рј СЃ СѓРєР°Р·Р°РЅРёРµРј РіСЂСѓРїРїС‹, С„Р°РјРёР»РёРё, РїСЂРµРґРјРµС‚Р°, РґР°С‚С‹. РџСЂРё РѕС‚СЃСѓС‚СЃС‚РІРёРё РѕС†РµРЅРєРё Р·Р°РїРѕР»РЅРёС‚СЊ
+--Р·РЅР°С‡РµРЅРёСЏРјРё NULL РїРѕР»СЏ РѕС†РµРЅРєРё.
 
 SELECT student.name, [group].name, subject.name, lesson.date, mark.mark FROM student
 JOIN [group] ON student.id_group = [group].id_group
 JOIN lesson ON [group].id_group = lesson.id_group
 JOIN [subject] ON lesson.id_subject = [subject].id_subject
 LEFT JOIN mark ON student.id_student = mark.id_student AND lesson.id_lesson = mark.id_lesson
-WHERE [group].name =  N'ВМ'
+WHERE [group].name =  N'Р’Рњ'
 ORDER BY student.name;
 
---6. Всем студентам специальности ПС, получившим оценки меньшие 5 по предмету БД до 12.05, повысить эти оценки на 1 балл.
+--6. Р’СЃРµРј СЃС‚СѓРґРµРЅС‚Р°Рј СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё РџРЎ, РїРѕР»СѓС‡РёРІС€РёРј РѕС†РµРЅРєРё РјРµРЅСЊС€РёРµ 5 РїРѕ РїСЂРµРґРјРµС‚Сѓ Р‘Р” РґРѕ 12.05, РїРѕРІС‹СЃРёС‚СЊ СЌС‚Рё РѕС†РµРЅРєРё РЅР° 1 Р±Р°Р»Р».
 
 BEGIN TRANSACTION 
-
-SELECT mark.mark FROM mark
-JOIN lesson ON mark.id_lesson = lesson.id_lesson
-JOIN [subject] ON lesson.id_subject = [subject].id_subject
-JOIN [group] ON lesson.id_group = [group].id_group
-WHERE [group].name = N'ПС' AND 
-	subject.name = N'БД' AND
-	lesson.date < '12.05.2019'
 
 UPDATE mark
 SET mark.mark += 1 
@@ -91,14 +83,14 @@ FROM mark
 JOIN lesson ON mark.id_lesson = lesson.id_lesson
 JOIN [subject] ON lesson.id_subject = [subject].id_subject
 JOIN [group] ON lesson.id_group = [group].id_group
-WHERE [group].name = N'ПС' AND 
-	subject.name = N'БД' AND
+WHERE [group].name = N'РџРЎ' AND 
+	subject.name = N'Р‘Р”' AND
 	mark.mark < 5 AND 
 	lesson.date < '12.05.2019'
 
 ROLLBACK;
 
---7. Добавить необходимые индексы.
+--7. Р”РѕР±Р°РІРёС‚СЊ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РёРЅРґРµРєСЃС‹.
 
 CREATE NONCLUSTERED INDEX [IX_student_id_group] ON [dbo].[student]
 (
